@@ -1,0 +1,12 @@
+{% extends 'actions/base.html' %}
+{% block Title %} New Promo {% endblock %}
+{% block Body %}
+     <form method="post" action="">
+        <fieldset>
+            <legend>New Promo</legend>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save Promo">
+        </fieldset>
+    </form>
+{% endblock %}

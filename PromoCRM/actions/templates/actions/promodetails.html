@@ -1,0 +1,15 @@
+{% extends 'actions/base.html' %}
+{% block Menu %} Promo Details {% endblock %}
+{% block Body %}
+    {{ promo }}
+    <ol> Название клиента: {{ promo.client }} </ol>
+    <ol> Название sku: {{ promo.sku }} </ol>
+    <ol> Тип промо: {{ promo.promo_type }} </ol>
+    <ol> Объем промо: {{ promo.promo_volume }} </ol>
+    <ol> Процент скидки: {{ promo.promo_discount }} </ol>
+    <ol> Дата начала промо: {{ promo.start_date }} </ol>
+    <ol> Дата окончания промо: {{ promo.end_date }} </ol>
+    <ol> Процент отгрузки (текущий месяц): {{ promo.percent_this_month }} </ol>
+    <ol> Процент отгрузки (следующий месяц): {{ promo.percent_next_month }} </ol>
+
+{% endblock %}

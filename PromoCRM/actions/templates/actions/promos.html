@@ -1,0 +1,11 @@
+{% extends 'actions/base.html' %}
+{% block Menu %} Promo List {% endblock %}
+{% block Body %}
+    {% for promo in promolist %}
+        <li>
+            <a href="{% url 'actions:promodetails' promo.id %}">
+                {{ promo.client }}{{ " |" }} {{ promo.sku }} {{ "|" }} {{ promo.start_date }} {{ "-" }}{{ promo.end_date }}
+            </a>
+        </li>
+    {% endfor %}
+{% endblock %}

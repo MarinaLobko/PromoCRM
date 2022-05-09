@@ -1,0 +1,21 @@
+{% extends 'identif/base.html' %}
+{% block Title %} Log In {% endblock %}
+{% block Body %}
+    <form method="post" action="">
+        <fieldset>
+            <legend>Log In</legend>
+            {% csrf_token %}
+            {% if form.errors %}
+                <p style="color: indianred">Got an error! {{ form.errors }}</p>
+            {% endif %}
+            <label for = 'username'>Username</label>
+            <input type = "text" name = "username" id='username'>
+            <label for = 'password'>Password</label>
+            <input type="password" name = "password" id='password'>
+            <input type="submit" value="Log In">
+            {% for message in messages %}
+                <p style="color: darkred"> {{ message }}</p>
+            {% endfor %}
+        </fieldset>
+    </form>
+{% endblock %}
