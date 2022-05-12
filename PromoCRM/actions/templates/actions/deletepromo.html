@@ -1,0 +1,14 @@
+{% extends 'actions/base.html' %}
+{% block Title %}{{ promo }}{% endblock %}
+{% block Body %}
+    <form action="" method="post" >
+        {% csrf_token %}
+        <fieldset>
+            <fieldset>
+            <legend>Are you sure?</legend>
+            <p>Are you sure you want to delete promo: {{ promo }}</p>
+            <input type="button" onclick="location.href='{% url 'actions:deletepromoconfirmation' promo.id %}'"value="Delete">
+            <input type="button" onclick="location.href='{% url 'actions:promodetails' promo.id %}'" value="Cancel">
+        </fieldset>
+    </form>
+{% endblock %}

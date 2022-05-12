@@ -1,6 +1,7 @@
 {% extends 'actions/base.html' %}
 {% block Menu %} Promo List {% endblock %}
 {% block Body %}
+{% if promolist %}
     {% for promo in promolist %}
         <li>
             <a href="{% url 'actions:promodetails' promo.id %}">
@@ -8,4 +9,7 @@
             </a>
         </li>
     {% endfor %}
+{% else %}
+    <p>No promos available.</p>
+{% endif %}
 {% endblock %}

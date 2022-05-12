@@ -11,5 +11,10 @@
     <ol> Дата окончания промо: {{ promo.end_date }} </ol>
     <ol> Процент отгрузки (текущий месяц): {{ promo.percent_this_month }} </ol>
     <ol> Процент отгрузки (следующий месяц): {{ promo.percent_next_month }} </ol>
-
+    <a href="{% url 'actions:editpromo' promo.id %}">
+        <button>Edit</button>
+    </a>
+    <a href="{% url 'actions:deletepromo' promo.id %}">
+        <button>Delete</button>
+    </a>
 {% endblock %}
