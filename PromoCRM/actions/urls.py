@@ -12,5 +12,5 @@ urlpatterns = [
     path('promodetails/<int:promo_id>/', views.detail, name='promodetails'),
     path('deletepromo/<int:promo_id>/', views.deletepromosubmition, name='deletepromo'),
     path('deletepromo/<int:promo_id>/conf/', views.deletepromo, name='deletepromoconfirmation'),
-    path('editpromo/<int:promo_id>/', views.PromoUpdate.as_view(), name='editpromo'),
+    path('editpromo/<int:pk>/', views.editpromo, name='editpromo'),
 ]

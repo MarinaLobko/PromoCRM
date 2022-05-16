@@ -7,8 +7,8 @@
             <fieldset>
             <legend>Are you sure?</legend>
             <p>Are you sure you want to delete promo: {{ promo }}</p>
-            <input type="button" onclick="location.href='{% url 'actions:deletepromoconfirmation' promo.id %}'"value="Delete">
-            <input type="button" onclick="location.href='{% url 'actions:promodetails' promo.id %}'" value="Cancel">
+            <input type="button" class="btn btn-success" onclick="location.href='{% url 'actions:deletepromoconfirmation' promo.id %}'"value="Delete">
+            <input type="button" class="btn btn-danger" onclick="location.href='{% url 'actions:promodetails' promo.id %}'" value="Cancel">
         </fieldset>
     </form>
 {% endblock %}

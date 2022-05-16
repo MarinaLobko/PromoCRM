@@ -1,22 +1,21 @@
 {% extends 'actions/base.html' %}
 {% block Title %}{{ promo }}{% endblock %}
 {% block Body %}
-     <form method="post" action="">
+     <form method="POST" action="">
         <fieldset>
             <legend>Edit Promo</legend>
             {% csrf_token %}
-            {{ form.as_p }}
-{#            <input type = "submit" value="Update">#}
-{#            <input name="name" value="{{promo.sku}}" />#}
-{#            <input name="name" value="{{promo.client}}" />#}
-{#            <input name="name" value="{{promo.promo_type}}" />#}
-{#            <input name="name" value="{{promo.promo_volume}}" />#}
-{#            <input name="name" value="{{promo.promo_discount}}" />#}
-{#            <input name="name" value="{{promo.start_date}}" />#}
-{#            <input name="name" value="{{promo.end_date}}" />#}
-{#            <input name="name" value="{{promo.percent_this_month}}" />#}
-{#            <input name="name" value="{{promo.percent_next_month}}" />#}
-{#             <input type="button" onclick="location.href='{% url 'actions:promodetails' promo.id %}'" value="Save">#}
+            <input name="client" value="{{promo.client}}" />
+            <input name="sku" value="{{promo.sku}}" />
+            <input name="promo_type" value="{{promo.promo_type}}" />
+            <input name="promo_volume" value="{{promo.promo_volume}}" />
+            <input name="promo_discount" value="{{promo.promo_discount}}" />
+            <input name="start_date" value="{{promo.start_date}}" />
+            <input name="end_date" value="{{promo.end_date}}" />
+            <input name="percent_this_month" value="{{promo.percent_this_month}}" />
+            <input name="percent_next_month" value="{{promo.percent_next_month}}" />
+            <input type="submit" value="Save">
+
         </fieldset>
     </form>
 {% endblock %}

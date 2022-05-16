@@ -1,5 +1,9 @@
 from django.db import models
 
+def get_username(request):
+    username = request.user.username
+    return username
+
 class Promo(models.Model):
     sku = models.CharField(max_length=200)
     client = models.CharField(max_length=200)
