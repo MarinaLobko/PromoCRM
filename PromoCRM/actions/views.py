@@ -4,23 +4,12 @@ from django.http import HttpResponse, Http404
 from .forms import PromoForm
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import UpdateView
 
 
 
-# class PromoUpdate(UpdateView):
-#     model = Promo
-#     template_name = 'actions/editpromo.html'
-#     fields = '__all__'
-#     def get_success_url(self):
-#         return reverse("actions:promodetails", args=(self.object.id,))
 
 @login_required(login_url=reverse_lazy('identif:login'))
 def promo_list(request):
-    # user = request.user.username
-    # if user != "mari_lobko":
-    #     return redirect('actions:newpromo')
-    # else:
     promolist = Promo.objects.order_by ('start_date')
     context = {
         'promolist': promolist,
@@ -87,13 +76,3 @@ def editpromo(request, pk):
         return render(request, "actions/editpromo.html", {
             "promo": promo,
             "form" : form})
-
-
-# @login_required(login_url=reverse_lazy('identif:login'))
-# def editpromo(request, promo_id):
-#     promo = Promo.objects.get(id=promo_id)
-#     form = PromoForm(request.POST)
-#     if form.is_valid():
-#         form.save()
-#     return render(request, "actions/promodetails.html", {
-#         "promo": promo})
