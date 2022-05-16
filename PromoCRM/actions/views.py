@@ -1,18 +1,21 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import Promo
 from django.http import HttpResponse, Http404
-from .forms import PromoForm
+from .forms import PromoForm, SearchForm
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.postgres.search import SearchVector
+import csv
 
 
 
 @login_required(login_url=reverse_lazy('identif:login'))
 def promo_list(request):
+    form = SearchForm()
     promolist = Promo.objects.order_by ('start_date')
     context = {
         'promolist': promolist,
+        'form':form
     }
     return render (request= request, template_name = 'actions/promos.html', context = context)
 
@@ -76,3 +79,27 @@ def editpromo(request, pk):
         return render(request, "actions/editpromo.html", {
             "promo": promo,
             "form" : form})
+
+@login_required(login_url=reverse_lazy('identif:login'))
+def search_promo(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if "query" in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            search_vector = SearchVector('sku','client')
+            results = Promo.objects.annotate(search=search_vector).filter(search=query)
+    return render(request, 'actions/search.html', {'form':form , 'query':query, 'results':results})
+
+def exportcsv(request):
+    promo = Promo.objects.all()
+    response = HttpResponse('text/csv')
+    response['Content-Disposition'] = 'attachment; filename=promo.csv'
+    writer = csv.writer(response)
+    writer.writerow(['sku','client', 'promo_type', 'promo_volume', 'promo_discount','start_date', 'end_date', 'percent_this_month', 'percent_this_month'])
+    promos = promo.values_list('sku','client', 'promo_type', 'promo_volume', 'promo_discount','start_date', 'end_date', 'percent_this_month', 'percent_this_month')
+    for element in promos:
+        writer.writerow(element)
+    return response

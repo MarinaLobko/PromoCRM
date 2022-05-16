@@ -4,10 +4,26 @@ services:
   app:
     build:
       context: .
-    command: python manage.py runserver
     ports:
       - "8000:8000"
     volumes:
-      - ./:/app
+      - static_data:/vol/web
     environment:
       - DEBUG=1
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=PromoCRM_dev
+      - SQL_USER=PromoCRM
+      - SQL_PASSWORD=PromoCRM
+      - SQL_HOST=db
+      - SQL_PORT=5432
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=PromoCRM
+      - POSTGRES_PASSWORD=PromoCRM
+      - POSTGRES_DB=PromoCRM_dev
+volumes:
+  static_data:
+  postgres_data:

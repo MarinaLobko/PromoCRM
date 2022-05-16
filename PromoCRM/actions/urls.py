@@ -1,8 +1,6 @@
 from django.urls import path
 from . import views
 
-from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
 
 app_name = 'actions'
 urlpatterns = [
@@ -13,4 +11,6 @@ urlpatterns = [
     path('deletepromo/<int:promo_id>/', views.deletepromosubmition, name='deletepromo'),
     path('deletepromo/<int:promo_id>/conf/', views.deletepromo, name='deletepromoconfirmation'),
     path('editpromo/<int:pk>/', views.editpromo, name='editpromo'),
+    path('searchpromo/', views.search_promo, name='searchpromo'),
+    path('exportpromo/', views.exportcsv, name='exportcsv')
 ]

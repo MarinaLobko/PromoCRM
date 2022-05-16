@@ -1,20 +1,24 @@
 {% extends 'actions/base.html' %}
 {% block Menu %} Promo Details {% endblock %}
 {% block Body %}
-    {{ promo }}
-    <ol> Название клиента: {{ promo.client }} </ol>
-    <ol> Название sku: {{ promo.sku }} </ol>
-    <ol> Тип промо: {{ promo.promo_type }} </ol>
-    <ol> Объем промо: {{ promo.promo_volume }} </ol>
-    <ol> Процент скидки: {{ promo.promo_discount }} </ol>
-    <ol> Дата начала промо: {{ promo.start_date }} </ol>
-    <ol> Дата окончания промо: {{ promo.end_date }} </ol>
-    <ol> Процент отгрузки (текущий месяц): {{ promo.percent_this_month }} </ol>
-    <ol> Процент отгрузки (следующий месяц): {{ promo.percent_next_month }} </ol>
-    <input type="button" class="btn btn-danger" onclick="location.href='{% url 'actions:promos'%}'" value="Back to promo list">
+    <h2>
+        {{ promo }}
+    </h2>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> Sku: {{ promo.sku }} </li>
+        <li class="list-group-item"> Client: {{ promo.client }} </li>
+        <li class="list-group-item"> Promo type: {{ promo.promo_type }} </li>
+        <li class="list-group-item"> Promo volume: {{ promo.promo_volume }} </li>
+        <li class="list-group-item"> Promo discount: {{ promo.promo_discount }} </li>
+        <li class="list-group-item"> Start date: {{ promo.start_date }} </li>
+        <li class="list-group-item"> End date {{ promo.end_date }} </li>
+        <li class="list-group-item"> Percent this month: {{ promo.percent_this_month }} </li>
+        <li class="list-group-item"> Percent next month: {{ promo.percent_next_month }} </li>
+    </ul>
+    <input type="button" class="btn btn-success" onclick="location.href='{% url 'actions:promos'%}'" value="Back to promo list">
 {#    <button type="button" class="btn btn-success" onclick="location.href='{% url 'actions:editpromo' promo.id %}'">Edit</button>#}
     <a href="{% url 'actions:editpromo' promo.id %}">
-        <button class="btn btn-danger">Edit</button>
+        <button class="btn btn-primary">Edit</button>
     </a>
     <a href="{% url 'actions:deletepromo' promo.id %}">
         <button class="btn btn-danger">Delete</button>

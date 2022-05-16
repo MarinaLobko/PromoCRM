@@ -1,0 +1,19 @@
+{% extends 'actions/base.html' %}
+{% block title %}Search Promo{% endblock %}
+{% block Body %}
+    <h1>Search Promo</h1>
+    <form class="d-flex" action="{% url 'actions:searchpromo' %}" method="get">
+        <input type="text" class="form-control me-2" name="query" placeholder="Search" value="{{ query }}" />
+        <input type="submit" class="btn btn-outline-success" value="Search" />
+    </form>
+    {% if query %}
+        <h4>
+            {% with results.count as total_results %}
+                {{ total_results }} result(s) for '{{ query }}':
+            {% endwith %}
+        </h4>
+        {% for promo in results %}
+            <h6><a href="{% url 'actions:promodetails' promo.id %}">{{ promo }}</a></h6>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

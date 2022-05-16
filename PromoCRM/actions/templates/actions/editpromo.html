@@ -1,12 +1,12 @@
 {% extends 'actions/base.html' %}
 {% block Title %}{{ promo }}{% endblock %}
 {% block Body %}
-     <form method="POST" action="">
+     <form method="POST" action="" class="form-control">
         <fieldset>
             <legend>Edit Promo</legend>
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="Save">
+            <input type="submit" class="btn btn-success" value="Save">
             <input type="button" class="btn btn-danger" onclick="location.href='{% url 'actions:promodetails' promo.id %}'" value="Cancel">
         </fieldset>
     </form>

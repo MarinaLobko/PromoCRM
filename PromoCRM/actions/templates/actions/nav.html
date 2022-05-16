@@ -1,6 +1,15 @@
-<nav>
-    <a href="{%  url 'actions:promos' %}">Promo List</a>
-    <a href="{%  url 'actions:newpromo' %}">Create new promo</a>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container container-fluid">
+        <a class="navbar-brand" href="#">Promo CRM App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="{%  url 'actions:promos' %}" class="nav-link">Promo List</a>
+        <a href="{%  url 'actions:newpromo' %}" class="nav-link">Create new promo</a>
+        <a href="{% url 'actions:exportcsv' %}">
+            Export to Excel
+        </a>
 {#    <a href="{%  url 'actions:approves' %}">Requires your approval</a>#}
-    <a href="{%  url 'identif:logout' %}">Log Out</a>
+        <a href="{%  url 'identif:logout' %}" class="nav-link">Log Out</a>
+    </div>
 </nav>
