@@ -23,3 +23,4 @@ As far as this data is needed for analysis as well, there is a possibility of im
 1. Sign up with receiving an e-mail so that the information is even more secured.
 2. Reset password feature.
 3. Possibility to approve promos by leads and controlling colleagues so that app has more useful functions.
+4. Added ability to count price with discount.
