@@ -3,6 +3,7 @@ from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
+#registers new user and checks whether he/she as a company employee
 def register_page (request):
     error = False
     if request.method == "POST":
@@ -20,6 +21,7 @@ def register_page (request):
     context = {'form': form, 'error':error}
     return render (request, 'identif/reg.html', context)
 
+#logs user in if input data's correct
 def login_page (request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -32,6 +34,7 @@ def login_page (request):
             messages.warning(request, 'Username or password is incorrect')
     return render (request, 'identif/login.html')
 
+#logs user out
 def logout_page (request):
     logout(request)
     return redirect('identif:login')

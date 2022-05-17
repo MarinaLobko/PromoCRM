@@ -1,10 +1,13 @@
 {% extends 'actions/base.html' %}
 {% block Title %} New Promo {% endblock %}
 {% block Body %}
-     <form method="post" action="">
+     <form method="post" action="" class="form-control">
         <fieldset>
-            <legend>New Promo</legend>
+            <legend>Promo</legend>
             {% csrf_token %}
+            {% if error == "Percent sum isn't 100%!" %}
+                <p style="color: indianred">Percent sum isn't 100%!</p>
+            {% endif %}
             {{ form.as_p }}
             <input type="submit" value="Save Promo">
         </fieldset>
