@@ -5,6 +5,9 @@
         <fieldset>
             <legend>Edit Promo</legend>
             {% csrf_token %}
+            {% if error == "Percent sum isn't 100%!" %}
+                <p style="color: indianred">Percent sum isn't 100%!</p>
+            {% endif %}
             {{ form.as_p }}
             <input type="submit" class="btn btn-success" value="Save">
             <input type="button" class="btn btn-danger" onclick="location.href='{% url 'actions:promodetails' promo.id %}'" value="Cancel">

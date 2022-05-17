@@ -8,7 +8,7 @@ from django.contrib.postgres.search import SearchVector
 import csv
 
 
-
+#shows all promos
 @login_required(login_url=reverse_lazy('identif:login'))
 def promo_list(request):
     form = SearchForm()
@@ -19,6 +19,7 @@ def promo_list(request):
     }
     return render (request= request, template_name = 'actions/promos.html', context = context)
 
+#shows promo details from Promo Model
 @login_required(login_url=reverse_lazy('identif:login'))
 def detail(request, promo_id):
     try:
@@ -27,11 +28,12 @@ def detail(request, promo_id):
         raise Http404("Promo you are trying to get does not exist!")
     return render(request,'actions/promodetails.html', { 'promo': promo })
 
-
+#to be done soon
 @login_required(login_url=reverse_lazy('identif:login'))
 def approval_list(request):
     return render (request, 'actions/approves.html')
 
+#creates new promo and checks whether volume split by months is correct
 @login_required(login_url=reverse_lazy('identif:login'))
 def new_promo(request):
     error = False
@@ -49,6 +51,7 @@ def new_promo(request):
         form = PromoForm()
     return render(request, 'actions/newpromo.html', {'form': form, 'error':error})
 
+#gets promo that's gonna be deleted to ask whether user's sure to do that
 @login_required(login_url=reverse_lazy('identif:login'))
 def deletepromosubmition(request, promo_id):
     try:
@@ -57,6 +60,7 @@ def deletepromosubmition(request, promo_id):
         raise Http404("Promo you are trying to get does not exist!")
     return render(request,'actions/deletepromo.html', { 'promo': promo })
 
+#if user decided to delete promo than this function deletes it
 @login_required(login_url=reverse_lazy('identif:login'))
 def deletepromo(request, promo_id):
     try:
@@ -66,20 +70,34 @@ def deletepromo(request, promo_id):
         raise Http404("Promo you are trying to get does not exist!")
     return redirect('actions:promos')
 
+#edits promo and checks whether monthly split is correct
 @login_required(login_url=reverse_lazy('identif:login'))
 def editpromo(request, pk):
+    error = False
     promo = Promo.objects.get(pk=pk)
     form = PromoForm(instance=promo)
     if request.method == "POST":
         form = PromoForm(request.POST, instance=promo)
         if form.is_valid():
-            form.save()
-            return redirect('actions:promodetails', promo.pk)
+            percent_this_month = int(request.POST.get('percent_this_month'))
+            percent_next_month = int(request.POST.get('percent_next_month'))
+            if percent_this_month + percent_next_month == 100:
+                form.save()
+                return redirect('actions:promodetails', promo.pk)
+            else:
+                error = "Percent sum isn't 100%!"
+                return render(request, "actions/editpromo.html", {
+                    "promo": promo,
+                    "form": form,
+                    "error": error
+                })
     else:
         return render(request, "actions/editpromo.html", {
             "promo": promo,
-            "form" : form})
+            "form" : form
+        })
 
+#looks for promos from user request and returns promo list
 @login_required(login_url=reverse_lazy('identif:login'))
 def search_promo(request):
     form = SearchForm()
@@ -93,6 +111,8 @@ def search_promo(request):
             results = Promo.objects.annotate(search=search_vector).filter(search=query)
     return render(request, 'actions/search.html', {'form':form , 'query':query, 'results':results})
 
+#exports data to excel csv
+@login_required(login_url=reverse_lazy('identif:login'))
 def exportcsv(request):
     promo = Promo.objects.all()
     response = HttpResponse('text/csv')
